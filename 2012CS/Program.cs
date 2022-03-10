@@ -61,7 +61,11 @@ namespace Breakthrough
                         Console.WriteLine(CurrentLock.GetLockDetails());
                         Console.WriteLine(Sequence.GetCardDisplay());
                         Console.WriteLine(Hand.GetCardDisplay());
+                        Console.WriteLine(Deck.GetNumberOfCards());
                         MenuChoice = GetChoice();
+                        
+                        
+                        
                         switch (MenuChoice)
                         {
                             case "D":
@@ -88,6 +92,7 @@ namespace Breakthrough
                             LockSolved = true;
                             ProcessLockSolved();
                         }
+                        
                     }
                     GameOver = CheckIfPlayerHasLost();
                 }
