@@ -61,7 +61,7 @@ namespace Breakthrough
                         Console.WriteLine(CurrentLock.GetLockDetails());
                         Console.WriteLine(Sequence.GetCardDisplay());
                         Console.WriteLine(Hand.GetCardDisplay());
-                        Console.WriteLine(Deck.GetNumberOfCards());
+                        Console.WriteLine("Current number of cards: " + Deck.GetNumberOfCards());  //question 1
                         MenuChoice = GetChoice();
                         
                         
@@ -481,6 +481,12 @@ namespace Breakthrough
             Challenges.Add(C);
         }
 
+        /*   private bool peekUsed()
+        {
+            bool used;                      question 2
+
+            return used;
+        }*/
         private string ConvertConditionToString(List<string> c)
         {
             string ConditionAsString = "";
