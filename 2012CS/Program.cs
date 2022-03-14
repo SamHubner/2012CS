@@ -480,7 +480,6 @@ namespace Breakthrough
             C.SetCondition(condition);
             Challenges.Add(C);
         }
-
         /*   private bool peekUsed()
         {
             bool used;                      question 2
