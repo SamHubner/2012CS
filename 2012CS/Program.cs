@@ -372,6 +372,7 @@ namespace Breakthrough
 
         private string GetChoice()
         {
+            
             Console.WriteLine();
             Console.Write("(D)iscard inspect, (U)se card:> ");
             string Choice = Console.ReadLine().ToUpper();
@@ -473,6 +474,7 @@ namespace Breakthrough
     class Lock
     {
         protected List<Challenge> Challenges = new List<Challenge>();
+        bool PeekUsed;
 
         public virtual void AddChallenge(List<string> condition)
         {
@@ -480,12 +482,16 @@ namespace Breakthrough
             C.SetCondition(condition);
             Challenges.Add(C);
         }
-        /*   private bool peekUsed()
+        //Question 2
+        public bool getPeek()
         {
-            bool used;                      question 2
+            return PeekUsed;
+        }
+        public void setPeek(bool n)
+        {
+            PeekUsed = n;
+        }
 
-            return used;
-        }*/
         private string ConvertConditionToString(List<string> c)
         {
             string ConditionAsString = "";
