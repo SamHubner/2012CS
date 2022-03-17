@@ -372,7 +372,6 @@ namespace Breakthrough
 
         private string GetChoice()
         {
-            
             Console.WriteLine();
             Console.Write("(D)iscard inspect, (U)se card:> ");
             string Choice = Console.ReadLine().ToUpper();
