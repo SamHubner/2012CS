@@ -91,9 +91,9 @@ namespace Breakthrough
                                 {
                                     if (CurrentLock.getPeek() == false)
                                     {
+                                        Console.WriteLine("The next three cards of the deck are:");
                                         for (int x = 0; x < 3; x = x + 1)
                                         {
-                                            Console.WriteLine("The next three cards of the deck are:");
                                             Console.Write(Deck.GetCardDescriptionAt(x));
                                         }
                                      CurrentLock.setPeek(true);
