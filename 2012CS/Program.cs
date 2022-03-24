@@ -66,6 +66,7 @@ namespace Breakthrough
                         
                         
                         
+                        
                         switch (MenuChoice)
                         {
                             case "D":
@@ -86,6 +87,22 @@ namespace Breakthrough
                                         PlayCardToSequence(CardChoice);
                                     break;
                                 }
+                            case "P":
+                                {
+                                    if (CurrentLock.getPeek() == false)
+                                    {
+                                        for (int x = 0; x < 3; x = x + 1)
+                                        {
+                                            Console.WriteLine("The next three cards of the deck are:");
+                                            Console.Write(Deck.GetCardDescriptionAt(x));
+                                        }
+                                     CurrentLock.setPeek(true);
+                                    }
+                                    else PlayGame();
+                                   
+                                    break;
+                                }
+
                         }
                         if (CurrentLock.GetLockSolved())
                         {
@@ -104,6 +121,7 @@ namespace Breakthrough
         private void ProcessLockSolved()
         {
             Score += 10;
+            CurrentLock.setPeek(true);
             Console.WriteLine("Lock has been solved.  Your score is now: " + Score);
             while (Discard.GetNumberOfCards() > 0)
             {
@@ -373,7 +391,12 @@ namespace Breakthrough
         private string GetChoice()
         {
             Console.WriteLine();
-            Console.Write("(D)iscard inspect, (U)se card:> ");
+            if (CurrentLock.getPeek() == false)
+            {
+                Console.Write("(D)iscard inspect, (U)se card, (P)eek:> ");
+            }
+            else Console.Write("(D)iscard inspect, (U)se card:> ");
+            
             string Choice = Console.ReadLine().ToUpper();
             return Choice;
         }
