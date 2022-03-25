@@ -174,6 +174,15 @@ namespace Breakthrough
         {
             if (Sequence.GetNumberOfCards() > 0)
             {
+                if (Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards()-1) == Hand.GetCardDescriptionAt(cardChoice-1))
+                {
+                    Console.WriteLine("Invalid as both cards are of the same type");
+                    Console.WriteLine(Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards() - 1));
+                    Console.WriteLine(Hand.GetCardDescriptionAt(cardChoice - 1));
+
+                    GetCardChoice();
+                }
+
                 if (Hand.GetCardDescriptionAt(cardChoice - 1)[0] != Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards() - 1)[0])
                 {
                     Score += MoveCard(Hand, Sequence, Hand.GetCardNumberAt(cardChoice - 1));
