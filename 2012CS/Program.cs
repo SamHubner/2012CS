@@ -32,6 +32,7 @@ namespace Breakthrough
         private bool GameOver;
         private Lock CurrentLock;
         private bool LockSolved;
+        private bool mulliganUsed = false;
 
         public Breakthrough()
         {
@@ -96,10 +97,13 @@ namespace Breakthrough
                                         {
                                             Console.Write(Deck.GetCardDescriptionAt(x));
                                         }
-                                     CurrentLock.setPeek(true);
+                                        CurrentLock.setPeek(true);
                                     }
-                                    else PlayGame();
-                                   
+                                    else
+                                    {
+                                        Console.WriteLine("invalid choice");
+                                        PlayGame();
+                                    }
                                     break;
                                 }
 
@@ -174,13 +178,13 @@ namespace Breakthrough
         {
             if (Sequence.GetNumberOfCards() > 0)
             {
-                if (Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards()-1) == Hand.GetCardDescriptionAt(cardChoice))
+              /*  if (Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards()-1) == Hand.GetCardDescriptionAt(cardChoice))
                 {
                     Console.WriteLine("Invalid as last played cards are of the same type" + Hand.GetCardDescriptionAt(cardChoice));
                     GetCardChoice();
-                }
+                }*/
 
-                else if (Hand.GetCardDescriptionAt(cardChoice - 1)[0] != Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards() - 1)[0])
+                if (Hand.GetCardDescriptionAt(cardChoice - 1)[0] != Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards() - 1)[0])
                 {
                     Score += MoveCard(Hand, Sequence, Hand.GetCardNumberAt(cardChoice - 1));
                     GetCardFromDeck(cardChoice);
@@ -399,7 +403,7 @@ namespace Breakthrough
             Console.WriteLine();
             if (CurrentLock.getPeek() == false)
             {
-                Console.Write("(D)iscard inspect, (U)se card, (P)eek:> ");
+                Console.Write("(D)iscard inspect, (U)se card, (P)eek:> ");  //Q2 AND 3
             }
             else Console.Write("(D)iscard inspect, (U)se card:> ");
             
