@@ -102,7 +102,7 @@ namespace Breakthrough
                                     else
                                     {
                                         Console.WriteLine("invalid choice");
-                                        PlayGame();
+                                        GetChoice();
                                     }
                                     break;
                                 }
@@ -178,11 +178,10 @@ namespace Breakthrough
         {
             if (Sequence.GetNumberOfCards() > 0)
             {
-              /*  if (Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards()-1) == Hand.GetCardDescriptionAt(cardChoice))
+                if (Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards()-1) == Hand.GetCardDescriptionAt(cardChoice))
                 {
                     Console.WriteLine("Invalid as last played cards are of the same type" + Hand.GetCardDescriptionAt(cardChoice));
-                    GetCardChoice();
-                }*/
+                }
 
                 if (Hand.GetCardDescriptionAt(cardChoice - 1)[0] != Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards() - 1)[0])
                 {
@@ -401,7 +400,15 @@ namespace Breakthrough
         private string GetChoice()
         {
             Console.WriteLine();
-            if (CurrentLock.getPeek() == false)
+            if (mulliganUsed == false && CurrentLock.getPeek() == false)
+            {
+                Console.Write("(D)iscard inspect, (U)se card, (P)eek, (M)ulligan:> ");  //Q2 AND 3
+            }
+            if (mulliganUsed == false && CurrentLock.getPeek() == true)
+            {
+                Console.Write("(D)iscard inspect, (U)se card, (M)ulligan:> ");  //Q2 AND 3
+            }
+            if (CurrentLock.getPeek() == false && mulliganUsed == true)
             {
                 Console.Write("(D)iscard inspect, (U)se card, (P)eek:> ");  //Q2 AND 3
             }
