@@ -780,6 +780,16 @@ namespace Breakthrough
             return Cards.Count;
         }
 
+        public void getAllCards()
+        {
+
+        }
+        
+        public void addAllCards()
+        {
+
+        }
+
         public void Shuffle()
         {
             Random RNoGen = new Random();
