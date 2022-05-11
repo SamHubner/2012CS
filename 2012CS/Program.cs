@@ -95,7 +95,7 @@ namespace Breakthrough
                                         Console.WriteLine("The next three cards of the deck are:");
                                         for (int x = 0; x < 3; x = x + 1)
                                         {
-                                            Console.Write(Deck.GetCardDescriptionAt(x));
+                                            Console.Write(Deck.GetCardDescriptionAt(x) + " ");
                                         }
                                         CurrentLock.setPeek(true);
                                     }
@@ -104,6 +104,11 @@ namespace Breakthrough
                                         Console.WriteLine("invalid choice");
                                         GetChoice();
                                     }
+                                    break;
+                                }
+                            case "M":
+                                {
+                                    mulliganUsed = true;
                                     break;
                                 }
 
@@ -400,19 +405,24 @@ namespace Breakthrough
         private string GetChoice()
         {
             Console.WriteLine();
-            if (mulliganUsed == false && CurrentLock.getPeek() == false)
-            {
-                Console.Write("(D)iscard inspect, (U)se card, (P)eek, (M)ulligan:> ");  //Q2 AND 3
-            }
+
             if (mulliganUsed == false && CurrentLock.getPeek() == true)
             {
                 Console.Write("(D)iscard inspect, (U)se card, (M)ulligan:> ");  //Q2 AND 3
             }
-            if (CurrentLock.getPeek() == false && mulliganUsed == true)
+            if (mulliganUsed == true && CurrentLock.getPeek() == false  )
             {
                 Console.Write("(D)iscard inspect, (U)se card, (P)eek:> ");  //Q2 AND 3
             }
-            else Console.Write("(D)iscard inspect, (U)se card:> ");
+            if (mulliganUsed == false && CurrentLock.getPeek() == false)
+            {
+                Console.Write("(D)iscard inspect, (U)se card, (P)eek, (M)ulligan:> ");  //Q2 AND 3
+            }
+            if (mulliganUsed == true && CurrentLock.getPeek() == true)
+            {
+                Console.Write("(D)iscard inspect, (U)se card:> ");  //Q2 AND 3
+            }
+            
             
             string Choice = Console.ReadLine().ToUpper();
             return Choice;
