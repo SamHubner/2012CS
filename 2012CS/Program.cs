@@ -111,6 +111,12 @@ namespace Breakthrough
                                     mulliganUsed = true;
                                     break;
                                 }
+                            case "Q":
+                                {
+                                    Score = Score + Deck.GetNumberOfCards();
+                                    Console.WriteLine("final score is:" + Score);
+                                    return;
+                                }
 
                         }
                         if (CurrentLock.GetLockSolved())
@@ -408,19 +414,19 @@ namespace Breakthrough
 
             if (mulliganUsed == false && CurrentLock.getPeek() == true)
             {
-                Console.Write("(D)iscard inspect, (U)se card, (M)ulligan:> ");  //Q2 AND 3
+                Console.Write("(D)iscard inspect, (U)se card, (M)ulligan, (Q)uit:> ");  //Q2 AND 3
             }
             if (mulliganUsed == true && CurrentLock.getPeek() == false  )
             {
-                Console.Write("(D)iscard inspect, (U)se card, (P)eek:> ");  //Q2 AND 3
+                Console.Write("(D)iscard inspect, (U)se card, (P)eek, (Q)uit:> ");  //Q2 AND 3
             }
             if (mulliganUsed == false && CurrentLock.getPeek() == false)
             {
-                Console.Write("(D)iscard inspect, (U)se card, (P)eek, (M)ulligan:> ");  //Q2 AND 3
+                Console.Write("(D)iscard inspect, (U)se card, (P)eek, (M)ulligan, (Q)uit:> ");  //Q2 AND 3
             }
             if (mulliganUsed == true && CurrentLock.getPeek() == true)
             {
-                Console.Write("(D)iscard inspect, (U)se card:> ");  //Q2 AND 3
+                Console.Write("(D)iscard inspect, (U)se card, (Q)uit:> ");  //Q2 AND 3
             }
             
             
@@ -790,16 +796,24 @@ namespace Breakthrough
             return Cards.Count;
         }
 
-        public void getAllCards()
+        public bool getAllCards()
         {
-
+            
+            return true;
         }
         
         public void addAllCards()
         {
 
         }
+        public void getCardStats()
+        {
+            int fileChance;
+            int keyChance;
+            int pickChance;
 
+
+        }
         public void Shuffle()
         {
             Random RNoGen = new Random();
