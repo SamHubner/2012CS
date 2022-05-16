@@ -64,10 +64,10 @@ namespace Breakthrough
                         Console.WriteLine(Hand.GetCardDisplay());
                         Console.WriteLine("Current number of cards: " + Deck.GetNumberOfCards());  //question 1
                         MenuChoice = GetChoice();
-                        
-                        
-                        
-                        
+
+
+
+
                         switch (MenuChoice)
                         {
                             case "D":
@@ -115,7 +115,9 @@ namespace Breakthrough
                                 {
                                     Score = Score + Deck.GetNumberOfCards();
                                     Console.WriteLine("final score is:" + Score);
-                                    return;
+                                    GameOver = true;
+                                    break;
+
                                 }
 
                         }
@@ -124,9 +126,9 @@ namespace Breakthrough
                             LockSolved = true;
                             ProcessLockSolved();
                         }
-                        
+
                     }
-                    GameOver = CheckIfPlayerHasLost();
+                    if (GameOver == false) GameOver = CheckIfPlayerHasLost();
                 }
             }
             else
@@ -357,6 +359,12 @@ namespace Breakthrough
             {
                 if (Deck.GetCardDescriptionAt(0) == "Dif")
                 {
+
+                    Console.WriteLine(Deck.getCardStats('F') / Deck.GetNumberOfCards());
+                    
+                    
+                    
+                    
                     Card CurrentCard = Deck.RemoveCard(Deck.GetCardNumberAt(0));
                     Console.WriteLine();
                     Console.WriteLine("Difficulty encountered!");
@@ -796,7 +804,7 @@ namespace Breakthrough
             return Cards.Count;
         }
 
-        public bool getAllCards()
+        public bool getAllCards(CardCollection C)
         {
             
             return true;
@@ -806,13 +814,18 @@ namespace Breakthrough
         {
 
         }
-        public void getCardStats()
+        public int getCardStats(char type)
         {
-            int fileChance;
-            int keyChance;
-            int pickChance;
+            int count = 0;
+            string cardDescription;
 
+            for(int x = 0; x < GetNumberOfCards(); x++)
+            {
+                cardDescription = GetCardDescriptionAt(x);
+                if (cardDescription[0] == type) count = count + 1;
 
+            }
+            return count; 
         }
         public void Shuffle()
         {
