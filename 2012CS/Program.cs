@@ -360,7 +360,7 @@ namespace Breakthrough
                 if (Deck.GetCardDescriptionAt(0) == "Dif")
                 {
 
-                    Console.WriteLine(Deck.getCardStats('F')*100 / Deck.GetNumberOfCards());
+                    Console.WriteLine("chance of f f: {0}",Deck.getCardStats('F')*100 / Deck.GetNumberOfCards());
                     
                     Card CurrentCard = Deck.RemoveCard(Deck.GetCardNumberAt(0));
                     Console.WriteLine();
@@ -816,7 +816,7 @@ namespace Breakthrough
             int count = 0;
             string cardDescription;
 
-            for(int x = 0; x < GetNumberOfCards(); x++)
+            for(int x = 0; x < this.GetNumberOfCards(); x++)
             {
                 cardDescription = GetCardDescriptionAt(x);
                 if (cardDescription[0] == type) count = count + 1;
