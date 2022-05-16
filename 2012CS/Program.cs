@@ -360,10 +360,7 @@ namespace Breakthrough
                 if (Deck.GetCardDescriptionAt(0) == "Dif")
                 {
 
-                    Console.WriteLine(Deck.getCardStats('F') / Deck.GetNumberOfCards());
-                    
-                    
-                    
+                    Console.WriteLine(Deck.getCardStats('F')*100 / Deck.GetNumberOfCards());
                     
                     Card CurrentCard = Deck.RemoveCard(Deck.GetCardNumberAt(0));
                     Console.WriteLine();
