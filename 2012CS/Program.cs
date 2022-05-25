@@ -144,6 +144,7 @@ namespace Breakthrough
             {
                 MoveCard(Discard, Deck, Discard.GetCardNumberAt(0));
             }
+            AddMultiToolCardsToDeck();
             Deck.Shuffle();
             CurrentLock = GetRandomLock();
         }
@@ -182,6 +183,7 @@ namespace Breakthrough
                     MoveCard(Deck, Hand, Deck.GetCardNumberAt(0));
                 }
                 AddDifficultyCardsToDeck();
+                AddMultiToolCardsToDeck();
                 Deck.Shuffle();
                 CurrentLock = GetRandomLock();
             }
@@ -189,13 +191,15 @@ namespace Breakthrough
 
         private void PlayCardToSequence(int cardChoice)
         {
+
             if (Sequence.GetNumberOfCards() > 0)
             {
+                checkMultiCard(cardChoice);
                 if (Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards()-1) == Hand.GetCardDescriptionAt(cardChoice))
                 {
                     Console.WriteLine("Invalid as last played cards are of the same type" + Hand.GetCardDescriptionAt(cardChoice));
                 }
-
+               
                 if (Hand.GetCardDescriptionAt(cardChoice - 1)[0] != Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards() - 1)[0])
                 {
                     Score += MoveCard(Hand, Sequence, Hand.GetCardNumberAt(cardChoice - 1));
@@ -446,7 +450,54 @@ namespace Breakthrough
                 Deck.AddCard(new DifficultyCard());
             }
         }
+        private void AddMultiToolCardsToDeck()
+        {
+            Deck.AddCard(new ToolCard("P", "m", true));
+            Deck.AddCard(new ToolCard("K", "m", true));
+            Deck.AddCard(new ToolCard("F", "m", true));
+        }
 
+         private void checkMultiCard(int cardChoice)
+         {
+            if (Hand.GetCardDescriptionAt(cardChoice - 1)[2] == 'm')
+            {
+                bool validToolkitChoice = false;
+                string toolkitChoice = "m";
+                while (!validToolkitChoice)
+                {
+                    switch (Hand.GetCardDescriptionAt(cardChoice - 1)[0])
+                    {
+                        case 'P':
+                            {
+                                Console.WriteLine("pick multitool card played. which toolkit should be applied? (A, B or C)");
+                                break;
+                            }
+                        case 'F':
+                            {
+                                Console.WriteLine("file multitool card played. which toolkit should be applied? (A, B or C)");
+                                break;
+                            }
+                        case 'K':
+                            {
+                                Console.WriteLine("pick multitool card played. which toolkit should be applied? (A, B or C)");
+                                break;
+                            }
+
+                            
+                    }
+                    toolkitChoice = Console.ReadLine();
+                            if(toolkitChoice == "A" || toolkitChoice =="F" || toolkitChoice == "P")
+                            {
+                                validToolkitChoice = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("invalid input - please try again");
+                            } 
+                }
+                Hand.assignToolKitAt(cardChoice - 1, toolkitChoice.ToLower());
+            }
+        }
         private void CreateStandardDeck()
         {
             Card NewCard;
@@ -634,6 +685,10 @@ namespace Breakthrough
             NextCardNumber += 1;
             Score = 0;
         }
+        public virtual void updateMultiToolKit(string toolKit)
+        {
+
+        }
 
         public virtual int GetScore()
         {
@@ -668,13 +723,15 @@ namespace Breakthrough
     {
         protected string ToolType;
         protected string Kit;
-
-        public ToolCard(string t, string k) : base()
+        private bool multiToolCard;
+        public ToolCard(string t, string k, bool multi = false) : base()
         {
             ToolType = t;
             Kit = k;
+            multiToolCard = multi;
             SetScore();
         }
+
 
         public ToolCard(string t, string k, int cardNo)
         {
@@ -682,6 +739,11 @@ namespace Breakthrough
             Kit = k;
             CardNumber = cardNo;
             SetScore();
+        }
+
+        public override void updateMultiToolKit(string toolKit)
+        {
+            Kit = toolKit;
         }
 
         private void SetScore()
@@ -703,6 +765,10 @@ namespace Breakthrough
                         Score = 1;
                         break;
                     }
+            }
+            if (multiToolCard)
+            {
+                Score = 0;
             }
         }
 
@@ -765,8 +831,15 @@ namespace Breakthrough
             }
         }
     }
+    class MultiToolCard : Card
+    {
+        protected string ToolType;
+        protected string Kit;
+    }
 
-    class CardCollection
+
+
+        class CardCollection
     {
         protected List<Card> Cards = new List<Card>();
         protected string Name;
@@ -780,7 +853,10 @@ namespace Breakthrough
         {
             return Name;
         }
-
+        public void assignToolKitAt(int x, string toolKit)
+        {
+            Cards[x].updateMultiToolKit(toolKit);
+        }
         public int GetCardNumberAt(int x)
         {
             return Cards[x].GetCardNumber();
@@ -818,7 +894,7 @@ namespace Breakthrough
 
             for(int x = 0; x < this.GetNumberOfCards(); x++)
             {
-                cardDescription = GetCardDescriptionAt(x);
+                cardDescription = GetCardDescriptionAt(x);                          
                 if (cardDescription[0] == type) count = count + 1;
 
             }
