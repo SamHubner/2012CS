@@ -290,7 +290,7 @@ namespace Breakthrough
         }
 
         private bool LoadGame(string fileName)
-        {
+        { 
             string LineFromFile;
             string LineFromFile2;
             try
@@ -582,6 +582,8 @@ namespace Breakthrough
         }
     }
 
+  
+
     class Lock
     {
         protected List<Challenge> Challenges = new List<Challenge>();
@@ -608,7 +610,17 @@ namespace Breakthrough
             string ConditionAsString = "";
             for (int Pos = 0; Pos <= c.Count - 2; Pos++)
             {
-                ConditionAsString += c[Pos] + ", ";
+               
+                try
+                {
+                    ConditionAsString += c[Pos] + ", ";
+                }
+                catch(Exception e) 
+                { 
+                    Console.WriteLine("Error" +e.StackTrace);
+
+                }
+                
             }
             ConditionAsString += c[c.Count - 1];
             return ConditionAsString;
