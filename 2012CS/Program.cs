@@ -195,9 +195,9 @@ namespace Breakthrough
             if (Sequence.GetNumberOfCards() > 0)
             {
                 checkMultiCard(cardChoice);
-                if (Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards()-1) == Hand.GetCardDescriptionAt(cardChoice))
+                if (Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards()-1) == Hand.GetCardDescriptionAt(cardChoice-1))
                 {
-                    Console.WriteLine("Invalid as last played cards are of the same type" + Hand.GetCardDescriptionAt(cardChoice));
+                    Console.WriteLine("Invalid as last played cards are of the same type" + Hand.GetCardDescriptionAt(cardChoice-1));
                 }
                
                 if (Hand.GetCardDescriptionAt(cardChoice - 1)[0] != Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards() - 1)[0])
@@ -486,7 +486,7 @@ namespace Breakthrough
                             
                     }
                     toolkitChoice = Console.ReadLine();
-                            if(toolkitChoice == "A" || toolkitChoice =="F" || toolkitChoice == "P")
+                            if(toolkitChoice == "A" || toolkitChoice =="B" || toolkitChoice == "C")
                             {
                                 validToolkitChoice = true;
                             }
@@ -839,8 +839,8 @@ namespace Breakthrough
 
 
 
-        class CardCollection
-    {
+   class CardCollection
+        {
         protected List<Card> Cards = new List<Card>();
         protected string Name;
 
