@@ -398,18 +398,27 @@ namespace Breakthrough
 
         private int GetCardChoice()
         {
-            string Choice = "";
+            string Choice;
             int Value;
-            int ChoiceAsInt = 10;
+            int ChoiceAsInt;
             do
             {
-                while (ChoiceAsInt > 5 || ChoiceAsInt < 1)
+                Console.Write("Enter a number between 1 and 5 to specify card to use:> ");
+                Choice = Console.ReadLine();
+                ChoiceAsInt = Convert.ToInt32(Choice);
+                while (ChoiceAsInt >5 || ChoiceAsInt < 1)
                 {
-                    Console.Write("Enter a number between 1 and 5 to specify card to use:> ");
+                    Console.WriteLine("invalid choice, must be between 1 and 5. Please pick again:");
                     Choice = Console.ReadLine();
-                    ChoiceAsInt = Convert.ToInt32(Choice);
+                    try
+                    {
+                        ChoiceAsInt = Convert.ToInt32(Choice);
+                    }
+                    catch
+                    {
+                        
+                    }
                 }
-
             }
             while (!int.TryParse(Choice, out Value));
             return Value;
