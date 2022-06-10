@@ -59,7 +59,7 @@ namespace Breakthrough
                     {
                         Console.WriteLine();
                         Console.WriteLine("Current score: " + Score);
-                        Console.WriteLine(CurrentLock.GetLockDetails());
+                        Console.WriteLine(CurrentLock.GetLockDetails(Sequence));
                         Console.WriteLine(Sequence.GetCardDisplay());
                         Console.WriteLine(Hand.GetCardDisplay());
                         Console.WriteLine("Current number of cards: " + Deck.GetNumberOfCards());  //question 1
@@ -195,9 +195,9 @@ namespace Breakthrough
             if (Sequence.GetNumberOfCards() > 0)
             {
                 checkMultiCard(cardChoice);
-                if (Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards()-1) == Hand.GetCardDescriptionAt(cardChoice))
+                if (Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards()-1) == Hand.GetCardDescriptionAt(cardChoice - 1))
                 {
-                    Console.WriteLine("Invalid as last played cards are of the same type" + Hand.GetCardDescriptionAt(cardChoice));
+                    Console.WriteLine("Invalid as last played cards are of the same type" + Hand.GetCardDescriptionAt(cardChoice - 1));
                 }
                
                 if (Hand.GetCardDescriptionAt(cardChoice - 1)[0] != Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards() - 1)[0])
@@ -398,12 +398,18 @@ namespace Breakthrough
 
         private int GetCardChoice()
         {
-            string Choice;
+            string Choice = "";
             int Value;
+            int ChoiceAsInt = 10;
             do
             {
-                Console.Write("Enter a number between 1 and 5 to specify card to use:> ");
-                Choice = Console.ReadLine();
+                while (ChoiceAsInt > 5 || ChoiceAsInt < 1)
+                {
+                    Console.Write("Enter a number between 1 and 5 to specify card to use:> ");
+                    Choice = Console.ReadLine();
+                    ChoiceAsInt = Convert.ToInt32(Choice);
+                }
+
             }
             while (!int.TryParse(Choice, out Value));
             return Value;
@@ -614,8 +620,9 @@ namespace Breakthrough
             return ConditionAsString;
         }
 
-        public virtual string GetLockDetails()
+        public virtual string GetLockDetails(CardCollection sequence)
         {
+
             string LockDetails = Environment.NewLine + "CURRENT LOCK" + Environment.NewLine + "------------" + Environment.NewLine;
             foreach (var C in Challenges)
             {
@@ -624,6 +631,41 @@ namespace Breakthrough
                     LockDetails += "Challenge met: ";
                 }
                 else
+                {
+                    int sequenceLength = sequence.GetNumberOfCards() - 1;
+                    List<string> condition = C.GetCondition();
+                    if(condition.Count == 3)
+                    {
+                        if(sequenceLength > 0 && condition[1] == sequence.GetCardDescriptionAt(sequenceLength - 1))
+                        {
+                            LockDetails += "partially met:    ";
+                        }
+                        else if (sequenceLength >=0 && condition[0] == sequence.GetCardDescriptionAt(sequenceLength))
+                        {
+                            LockDetails += "partially met:    ";
+                        }
+                        else
+                        {
+                            LockDetails += "not met:     ";
+                        }
+                    }
+                    else if(condition.Count() == 2)
+                    {
+                        if (sequenceLength >= 0 && condition[0] == sequence.GetCardDescriptionAt(sequenceLength))
+                        {
+                            LockDetails += "partially met:   ";
+                        }
+                        else
+                        {
+                            LockDetails += "not met:   ";
+                        }
+                    }
+                    else
+                    {
+                        LockDetails += "not met:   ";
+                    }
+                    
+                }
                 {
                     LockDetails += "Not met:       ";
                 }
