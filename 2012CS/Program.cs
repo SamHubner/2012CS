@@ -195,9 +195,9 @@ namespace Breakthrough
             if (Sequence.GetNumberOfCards() > 0)
             {
                 checkMultiCard(cardChoice);
-                if (Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards()-1) == Hand.GetCardDescriptionAt(cardChoice - 1))
+                if (Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards()-1) == Hand.GetCardDescriptionAt(cardChoice))
                 {
-                    Console.WriteLine("Invalid as last played cards are of the same type" + Hand.GetCardDescriptionAt(cardChoice - 1));
+                    Console.WriteLine("Invalid as last played cards are of the same type" + Hand.GetCardDescriptionAt(cardChoice));
                 }
                
                 if (Hand.GetCardDescriptionAt(cardChoice - 1)[0] != Sequence.GetCardDescriptionAt(Sequence.GetNumberOfCards() - 1)[0])
@@ -290,7 +290,7 @@ namespace Breakthrough
         }
 
         private bool LoadGame(string fileName)
-        {
+        { 
             string LineFromFile;
             string LineFromFile2;
             try
@@ -501,7 +501,7 @@ namespace Breakthrough
                             
                     }
                     toolkitChoice = Console.ReadLine();
-                            if(toolkitChoice == "A" || toolkitChoice =="F" || toolkitChoice == "P")
+                            if(toolkitChoice == "A" || toolkitChoice =="B" || toolkitChoice == "C")
                             {
                                 validToolkitChoice = true;
                             }
@@ -597,6 +597,8 @@ namespace Breakthrough
         }
     }
 
+  
+
     class Lock
     {
         protected List<Challenge> Challenges = new List<Challenge>();
@@ -623,7 +625,17 @@ namespace Breakthrough
             string ConditionAsString = "";
             for (int Pos = 0; Pos <= c.Count - 2; Pos++)
             {
-                ConditionAsString += c[Pos] + ", ";
+               
+                try
+                {
+                    ConditionAsString += c[Pos] + ", ";
+                }
+                catch(Exception e) 
+                { 
+                    Console.WriteLine("Error" +e.StackTrace);
+
+                }
+                
             }
             ConditionAsString += c[c.Count - 1];
             return ConditionAsString;
@@ -890,8 +902,8 @@ namespace Breakthrough
 
 
 
-        class CardCollection
-    {
+   class CardCollection
+        {
         protected List<Card> Cards = new List<Card>();
         protected string Name;
 
